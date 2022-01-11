@@ -1,0 +1,19 @@
+version: '2'
+services:
+  kura-g5:
+    restart: always
+    build: ./kura-g5
+    command: gunicorn -w 4 --bind :5000 kura-g5:server
+    expose:
+     - "5000"
+    ports:
+     - "5000:5000"
+  nginx:
+    restart: always
+    build: ./nginx
+    links:
+     - "kura-g5"
+    expose:
+     - "80"
+    ports:
+     - "80:80"
