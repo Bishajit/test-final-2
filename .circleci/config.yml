@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
-            cd backend/
+            cd microservices/kura-g5/
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install --user -r requirements.txt
       - run:
@@ -33,7 +33,7 @@ jobs:
         - run:
             name: copying file
             command: |
-              cd frontend/
+              cd  microservices/nginx/frontend/
               cp -r . /usr/share/nginx/html
 
   deploy_ecr_backend:
@@ -43,7 +43,7 @@ jobs:
         - aws-ecr/build-and-push-image:
             create-repo: true
             repo: backend 
-            path: /home/circleci/final/backend/
+            path: /home/circleci/final/microservices/kura-g5/
             tag: latest-${CIRCLE_BUILD_NUM}
 
   deploy_ecr_frontend:
